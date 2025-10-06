@@ -43,34 +43,28 @@ namespace login_and_register
             string query = "";
             bool isValid = true;
 
-            // Tüm kutucuklar boşsa
             if (NameBool && OldPasswdBool && NewPasswdBool)
             {
                 MessageBox.Show("Lütfen boş alanları doldurun", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 isValid = false;
             }
-            // Sadece isim doluysa, diğerleri boşsa
             else if (!NameBool && OldPasswdBool && NewPasswdBool)
             {
                 MessageBox.Show("Lütfen güncel şifrenizi giriniz", "Hata");
                 isValid = false;
             }
-            // Sadece şifre değiştirmek isteniyorsa (isim boş, şifreler dolu)
             else if (NameBool && !OldPasswdBool && !NewPasswdBool)
             {
                 query = "update Users set passcode = @NEWPASSWD where _name = @USER and passcode = @OLDPASSWD";
             }
-            // Sadece isim değiştirmek isteniyorsa (isim dolu, eski şifre dolu, yeni şifre boş)
             else if (!NameBool && !OldPasswdBool && NewPasswdBool)
             {
                 query = "update Users set username = @NAME where _name = @USER and passcode = @OLDPASSWD";
             }
-            // Hem isim hem şifre değiştirmek isteniyorsa (hepsi dolu)
             else if (!NameBool && !OldPasswdBool && !NewPasswdBool)
             {
                 query = "update Users set username = @NAME, passcode = @NEWPASSWD where _name = @USER and passcode = @OLDPASSWD";
             }
-            // Sadece isim ve yeni şifre doluysa, eski şifre yoksa
             else if (!NameBool && OldPasswdBool && !NewPasswdBool)
             {
                 MessageBox.Show("Lütfen şifrenizi ve isminizi değiştirmek için şu anki şifrenizi giriniz", "Hata");
@@ -87,6 +81,7 @@ namespace login_and_register
 
             try
             {
+                int affectedRows = 0;
                 using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
                 {
                     con.Open();
@@ -96,10 +91,17 @@ namespace login_and_register
                         cmd.Parameters.AddWithValue("@OLDPASSWD", (object)OldPasswd ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@NEWPASSWD", (object)NewPasswd ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@USER", kullaniciadi);
-                        cmd.ExecuteNonQuery();
+                        affectedRows = cmd.ExecuteNonQuery();
                     }
                 }
-                MessageBox.Show("Güncelleme başarılı", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (affectedRows > 0)
+                {
+                    MessageBox.Show("Güncelleme başarılı", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Güncelleme başarısız: Şifreniz yanlış veya kullanıcı bulunamadı.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
