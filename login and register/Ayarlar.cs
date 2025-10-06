@@ -44,7 +44,7 @@ namespace login_and_register
             else if (!NameBool && OldPasswdBool && NewPasswdBool) //Sadece isim doluysa, ama diğer ikisi boşsa
             {
                 // eski şifreyi iste
-                MessageBox.Show()
+                MessageBox.Show("lütfen güncel şifrenizi giriniz", "Hata");
             }
             else if (NameBool && !OldPasswdBool && !NewPasswdBool) //İsim boş ama diğer ikisi doluysa
             {
@@ -56,7 +56,8 @@ namespace login_and_register
             }
             else if (!NameBool && OldPasswdBool && !NewPasswdBool) //İsim dolu, old pass boş ama new pass doluysa
             {
-                // message box show yap lütfen şifrenizi ve isminiizi değiştirmek için şuanki şifrenizi giriniz
+                // message box show yap lütfen şifrenizi ve isminizi değiştirmek için şuanki şifrenizi giriniz
+                MessageBox.Show("lütfen şifrenizi ve isminizi değiştirmek için şuanki şifrenizi giriniz", "Hata");
             }
             else if (!NameBool && !OldPasswdBool && !NewPasswdBool) // hepsi doluysa 
             {
