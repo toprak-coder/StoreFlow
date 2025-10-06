@@ -100,8 +100,9 @@ namespace login_and_register
             }
             catch (Exception ex)
             {
-
-                
+             
+                MessageBox.Show("Güncelleme başarısız: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                con.Close();
             }
         }
     }
