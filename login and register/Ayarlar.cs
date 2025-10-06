@@ -42,7 +42,7 @@ namespace login_and_register
 
 
             /*eğer bütün kutucuklar boş ise*/
-            if (NameBool&&OldPasswdBool&&NewPasswdBool)
+            if (NameBool && OldPasswdBool && NewPasswdBool)
             {
                 MessageBox.Show("Lütfen boş alanları doldurun", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -56,13 +56,13 @@ namespace login_and_register
                 //şifre değiştir old passwdyi new passswd yap
 
                 //Alt tarafda parametre alırsın ve sorguyu çalıştırırsın
-                 query = "update Users set passcode = @NEWPASSWD where passcode = @OLDPASSWD";
+                query = "update Users set passcode = @NEWPASSWD where passcode = @OLDPASSWD";
             }
             else if (!NameBool && !OldPasswdBool && NewPasswdBool) //İsim dolu, old pass dolu ama new pass boşsa
             {
                 //ismi değiştir eski şifreyi where olarak kullan
 
-                 query = "update Users set username = @NAME where passcode = @OLDPASSWD";
+                query = "update Users set username = @NAME where passcode = @OLDPASSWD";
             }
             else if (!NameBool && OldPasswdBool && !NewPasswdBool) //İsim dolu, old pass boş ama new pass doluysa
             {
@@ -100,9 +100,50 @@ namespace login_and_register
             }
             catch (Exception ex)
             {
-             
+
                 MessageBox.Show("Güncelleme başarısız: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 con.Close();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+             var YesOrNo =  MessageBox.Show("Hesabınız silinecektir, emin misiniz?", "Dikkat", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (string.IsNullOrEmpty(textBox2.Text))
+                {
+                    MessageBox.Show("lütfen güncel şifrenizi giriniz", "Hata");
+                }
+                else if (YesOrNo == DialogResult.Yes)
+                {
+                    MessageBox.Show("Hesabınız silinmiştir", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+              else if (YesOrNo == DialogResult.No)
+                {
+                    MessageBox.Show("Hesabınız silinmemiştir", "İptal Edildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("bilinemeyen bir hata oluştu", "hata");
+                }
+                string OldPasswd = textBox2.Text;
+                string query = "delete from Users where passcode = @OLDPASSWD";
+                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@OLDPASSWD", OldPasswd);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

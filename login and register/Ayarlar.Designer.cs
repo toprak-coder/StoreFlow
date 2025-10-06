@@ -59,6 +59,7 @@
             button1.TabIndex = 20;
             button1.Text = "Hesabımı Sil";
             button1.TextAlignment = StringAlignment.Center;
+            button1.Click += button1_Click;
             // 
             // button2
             // 
