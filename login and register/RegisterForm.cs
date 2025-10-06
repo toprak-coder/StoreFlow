@@ -47,6 +47,7 @@ namespace login_and_register
                 }
 
                 MessageBox.Show("Hesabınız kaydedildi");
+                this.Close();
             }
             catch (Exception ex)
             {

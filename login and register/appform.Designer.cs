@@ -137,11 +137,11 @@
             labelEdit1.BackColor = Color.Transparent;
             labelEdit1.Font = new Font("Palatino Linotype", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelEdit1.ForeColor = SystemColors.Desktop;
-            labelEdit1.Location = new Point(19, 107);
+            labelEdit1.Location = new Point(43, 105);
             labelEdit1.Name = "labelEdit1";
-            labelEdit1.Size = new Size(110, 20);
+            labelEdit1.Size = new Size(46, 20);
             labelEdit1.TabIndex = 2;
-            labelEdit1.Text = "ismi ve soyismi";
+            labelEdit1.Text = "name";
             // 
             // parrotPictureBox1
             // 
@@ -281,10 +281,10 @@
         private ReaLTaiizor.Controls.FoxButton foxButton2;
         private ReaLTaiizor.Controls.FoxButton foxButton1;
         private ReaLTaiizor.Controls.ParrotPictureBox parrotPictureBox1;
-        private ReaLTaiizor.Controls.LabelEdit labelEdit1;
         private ReaLTaiizor.Controls.FoxButton foxButton5;
         private ReaLTaiizor.Controls.FoxButton foxButton7;
         private ReaLTaiizor.Controls.FoxButton foxButton6;
         private Panel panel1;
+        private ReaLTaiizor.Controls.LabelEdit labelEdit1;
     }
 }

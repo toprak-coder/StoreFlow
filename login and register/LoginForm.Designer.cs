@@ -51,6 +51,7 @@
             UserNameTxtBox.Name = "UserNameTxtBox";
             UserNameTxtBox.Size = new Size(166, 23);
             UserNameTxtBox.TabIndex = 0;
+            UserNameTxtBox.TextChanged += UserNameTxtBox_TextChanged;
             // 
             // PasswordTextBox
             // 

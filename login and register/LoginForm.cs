@@ -78,7 +78,10 @@ namespace login_and_register
             }
             else if (isUserOk && ispassok)
             {
-                Hide(); appform app = new appform(); app.ShowDialog(); Close();
+
+                Hide(); appform app = new appform();
+                app.kullaniciadi = UserNameTxtBox.Text; // kullanıcı adını appform'a aktar
+                app.ShowDialog(); Close();
             }
         }
 
@@ -90,6 +93,11 @@ namespace login_and_register
         {// alanlara boş yada space ilemi doldurulmuş diye bakar eğer boş veya doldurulmamış alanlar varsa false döner yoksa true döner
             if (string.IsNullOrWhiteSpace(UserNameTxtBox.Text) || (string.IsNullOrWhiteSpace(PasswordTextBox.Text))) return false;
             else return true;
+        }
+
+        private void UserNameTxtBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

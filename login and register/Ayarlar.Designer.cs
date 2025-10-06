@@ -33,9 +33,9 @@
             nightLabel2 = new ReaLTaiizor.Controls.NightLabel();
             nightLabel1 = new ReaLTaiizor.Controls.NightLabel();
             nightLabel3 = new ReaLTaiizor.Controls.NightLabel();
-            textBox1 = new TextBox();
             textBox2 = new TextBox();
             textBox3 = new TextBox();
+            textBox1 = new TextBox();
             panel1 = new Panel();
             nightHeaderLabel1 = new ReaLTaiizor.Controls.NightHeaderLabel();
             panel1.SuspendLayout();
@@ -117,26 +117,27 @@
             nightLabel3.TabIndex = 25;
             nightLabel3.Text = "güncel şifreniz:";
             // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(278, 212);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(169, 23);
-            textBox1.TabIndex = 26;
-            // 
             // textBox2
             // 
-            textBox2.Location = new Point(278, 276);
+            textBox2.Location = new Point(278, 212);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(169, 23);
-            textBox2.TabIndex = 27;
+            textBox2.TabIndex = 26;
+            textBox2.TextChanged += textBox1_TextChanged;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(278, 144);
+            textBox3.Location = new Point(278, 276);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(169, 23);
-            textBox3.TabIndex = 28;
+            textBox3.TabIndex = 27;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(278, 144);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(169, 23);
+            textBox1.TabIndex = 28;
             // 
             // panel1
             // 
@@ -172,9 +173,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(2, 48, 32);
             Controls.Add(panel1);
+            Controls.Add(textBox1);
             Controls.Add(textBox3);
             Controls.Add(textBox2);
-            Controls.Add(textBox1);
             Controls.Add(nightLabel3);
             Controls.Add(nightLabel1);
             Controls.Add(nightLabel2);
@@ -195,9 +196,9 @@
         private ReaLTaiizor.Controls.NightLabel nightLabel2;
         private ReaLTaiizor.Controls.NightLabel nightLabel1;
         private ReaLTaiizor.Controls.NightLabel nightLabel3;
-        private TextBox textBox1;
         private TextBox textBox2;
         private TextBox textBox3;
+        private TextBox textBox1;
         private Panel panel1;
         private ReaLTaiizor.Controls.NightHeaderLabel nightHeaderLabel1;
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
+﻿using Microsoft.Identity.Client;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,8 @@ namespace login_and_register
         {
             InitializeComponent();
         }
+
+        public string kullaniciadi { get; set; }  //kullanıcı adını tutacak değişken
 
         private void LoadUserControl(UserControl uc)
         {
@@ -66,7 +69,9 @@ namespace login_and_register
 
         private void foxButton6_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new Ayarlar());
+            var ayarlar = new Ayarlar();
+            ayarlar.kullaniciadi = this.kullaniciadi; // Kullanıcı adını Ayarlar formuna aktar
+            LoadUserControl(ayarlar);
         }
 
         private void foxButton5_Click(object sender, EventArgs e)
@@ -81,6 +86,7 @@ namespace login_and_register
 
         private void appform_Load(object sender, EventArgs e)
         {
+            labelEdit1.Text = kullaniciadi; // Kullanıcı adını labelEdit1'e ata
 
         }
     }

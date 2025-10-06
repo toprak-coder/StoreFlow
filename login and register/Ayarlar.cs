@@ -23,6 +23,9 @@ namespace login_and_register
             InitializeComponent();
         }
 
+        public string kullaniciadi { get; set; }
+
+
         private void Ayarlar_Load(object sender, EventArgs e)
         {
 
@@ -31,56 +34,56 @@ namespace login_and_register
         private void button2_Click(object sender, EventArgs e)
         {
             string Name = textBox1.Text;
-            string query = "";
             string OldPasswd = textBox2.Text;
             string NewPasswd = textBox3.Text;
-            Boolean NameBool = string.IsNullOrEmpty(textBox1.Text); //eğer içi doluysa false döner
-            Boolean OldPasswdBool = string.IsNullOrEmpty(textBox2.Text);
-            Boolean NewPasswdBool = string.IsNullOrEmpty(textBox3.Text);
+            bool NameBool = string.IsNullOrEmpty(Name);
+            bool OldPasswdBool = string.IsNullOrEmpty(OldPasswd);
+            bool NewPasswdBool = string.IsNullOrEmpty(NewPasswd);
 
-            //EĞER AYNI ŞİFRELİ KİŞİLER VARSA BUSSİNES LOGİC HATASI OLUYOR DÜZELT BETA VERSİYONUNDA
+            string query = "";
+            bool isValid = true;
 
-
-            /*eğer bütün kutucuklar boş ise*/
+            // Tüm kutucuklar boşsa
             if (NameBool && OldPasswdBool && NewPasswdBool)
             {
                 MessageBox.Show("Lütfen boş alanları doldurun", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                isValid = false;
             }
-            else if (!NameBool && OldPasswdBool && NewPasswdBool) //Sadece isim doluysa, ama diğer ikisi boşsa
+            // Sadece isim doluysa, diğerleri boşsa
+            else if (!NameBool && OldPasswdBool && NewPasswdBool)
             {
-                // eski şifreyi iste
-                MessageBox.Show("lütfen güncel şifrenizi giriniz", "Hata");
+                MessageBox.Show("Lütfen güncel şifrenizi giriniz", "Hata");
+                isValid = false;
             }
-            else if (NameBool && !OldPasswdBool && !NewPasswdBool) //İsim boş ama diğer ikisi doluysa
+            // Sadece şifre değiştirmek isteniyorsa (isim boş, şifreler dolu)
+            else if (NameBool && !OldPasswdBool && !NewPasswdBool)
             {
-                //şifre değiştir old passwdyi new passswd yap
-
-                //Alt tarafda parametre alırsın ve sorguyu çalıştırırsın
-                query = "update Users set passcode = @NEWPASSWD where passcode = @OLDPASSWD";
+                query = "update Users set passcode = @NEWPASSWD where _name = @USER and passcode = @OLDPASSWD";
             }
-            else if (!NameBool && !OldPasswdBool && NewPasswdBool) //İsim dolu, old pass dolu ama new pass boşsa
+            // Sadece isim değiştirmek isteniyorsa (isim dolu, eski şifre dolu, yeni şifre boş)
+            else if (!NameBool && !OldPasswdBool && NewPasswdBool)
             {
-                //ismi değiştir eski şifreyi where olarak kullan
-
-                query = "update Users set username = @NAME where passcode = @OLDPASSWD";
+                query = "update Users set username = @NAME where _name = @USER and passcode = @OLDPASSWD";
             }
-            else if (!NameBool && OldPasswdBool && !NewPasswdBool) //İsim dolu, old pass boş ama new pass doluysa
+            // Hem isim hem şifre değiştirmek isteniyorsa (hepsi dolu)
+            else if (!NameBool && !OldPasswdBool && !NewPasswdBool)
             {
-                // message box show yap lütfen şifrenizi ve isminizi değiştirmek için şuanki şifrenizi giriniz
-                MessageBox.Show("lütfen şifrenizi ve isminizi değiştirmek için şuanki şifrenizi giriniz", "Hata");
+                query = "update Users set username = @NAME, passcode = @NEWPASSWD where _name = @USER and passcode = @OLDPASSWD";
             }
-            else if (!NameBool && !OldPasswdBool && !NewPasswdBool) // hepsi doluysa 
+            // Sadece isim ve yeni şifre doluysa, eski şifre yoksa
+            else if (!NameBool && OldPasswdBool && !NewPasswdBool)
             {
-                //ismi ve şifreyi değiştir where old passwd
-                query = "update Users set username = @NAME, passcode = @NEWPASSWD where passcode = @OLDPASSWD";
+                MessageBox.Show("Lütfen şifrenizi ve isminizi değiştirmek için şu anki şifrenizi giriniz", "Hata");
+                isValid = false;
             }
             else
             {
-                MessageBox.Show("bilinemeyen bir hata oluştu", "hata");
+                MessageBox.Show("Bilinmeyen bir hata oluştu", "Hata");
+                isValid = false;
             }
 
-
-            // sql connectionda şunlar alınacak @NAME, @OLDPASSWD, @NEWPASSWD
+            if (!isValid || string.IsNullOrEmpty(query))
+                return;
 
             try
             {
@@ -89,20 +92,18 @@ namespace login_and_register
                     con.Open();
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
-                        cmd.Parameters.AddWithValue("@NAME", Name);
-                        cmd.Parameters.AddWithValue("@OLDPASSWD", OldPasswd);
-                        cmd.Parameters.AddWithValue("@NEWPASSWD", NewPasswd);
+                        cmd.Parameters.AddWithValue("@NAME", (object)Name ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@OLDPASSWD", (object)OldPasswd ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@NEWPASSWD", (object)NewPasswd ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@USER", kullaniciadi);
                         cmd.ExecuteNonQuery();
                     }
                 }
-                con.Close();
                 MessageBox.Show("Güncelleme başarılı", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show("Güncelleme başarısız: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                con.Close();
             }
         }
 
@@ -110,8 +111,8 @@ namespace login_and_register
         {
             try
             {
-             var YesOrNo =  MessageBox.Show("Hesabınız silinecektir, emin misiniz?", "Dikkat", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (string.IsNullOrEmpty(textBox2.Text))
+                var YesOrNo = MessageBox.Show("Hesabınız silinecektir, emin misiniz?", "Dikkat", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (string.IsNullOrEmpty(textBox3.Text))
                 {
                     MessageBox.Show("lütfen güncel şifrenizi giriniz", "Hata");
                 }
@@ -119,7 +120,7 @@ namespace login_and_register
                 {
                     MessageBox.Show("Hesabınız silinmiştir", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-              else if (YesOrNo == DialogResult.No)
+                else if (YesOrNo == DialogResult.No)
                 {
                     MessageBox.Show("Hesabınız silinmemiştir", "İptal Edildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
@@ -128,7 +129,7 @@ namespace login_and_register
                 {
                     MessageBox.Show("bilinemeyen bir hata oluştu", "hata");
                 }
-                string OldPasswd = textBox2.Text;
+                string OldPasswd = textBox3.Text;
                 string query = "delete from Users where passcode = @OLDPASSWD";
                 using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
                 {
@@ -145,6 +146,11 @@ namespace login_and_register
             {
 
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
