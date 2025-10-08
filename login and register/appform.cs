@@ -23,6 +23,7 @@ namespace login_and_register
         }
 
         public string kullaniciadi { get; set; }  //kullanıcı adını tutacak değişken
+        public int kullaniciId { get; set; } // ID için property ekle
 
         private void LoadUserControl(UserControl uc)
         {
@@ -70,7 +71,8 @@ namespace login_and_register
         private void foxButton6_Click(object sender, EventArgs e)
         {
             var ayarlar = new Ayarlar();
-            ayarlar.kullaniciadi = this.kullaniciadi; // Kullanıcı adını Ayarlar formuna aktar
+            ayarlar.kullaniciadi = this.kullaniciadi;
+            ayarlar.kullaniciId = this.kullaniciId; // ID'yi aktar
             LoadUserControl(ayarlar);
         }
 

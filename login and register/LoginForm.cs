@@ -78,10 +78,28 @@ namespace login_and_register
             }
             else if (isUserOk && ispassok)
             {
-
-                Hide(); appform app = new appform();
-                app.kullaniciadi = UserNameTxtBox.Text; // kullanıcı adını appform'a aktar
-                app.ShowDialog(); Close();
+                // Login işlemi başarılıysa:
+                int userId = 0;
+                string query2 = "SELECT Id FROM Users WHERE username=@USER";
+                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                {
+                    con.Open();
+                    using (SqlCommand scmd = new SqlCommand(query2, con))
+                    {
+                        scmd.Parameters.Add("@USER", SqlDbType.VarChar).Value = UserNameTxtBox.Text;
+                        using (SqlDataReader sda = scmd.ExecuteReader())
+                        {
+                            if (sda.Read())
+                                userId = sda.GetInt32(0);
+                        }
+                    }
+                }
+                Hide();
+                appform app = new appform();
+                app.kullaniciadi = UserNameTxtBox.Text;
+                app.kullaniciId = userId; // ID'yi aktar
+                app.ShowDialog();
+                Close();
             }
         }
 

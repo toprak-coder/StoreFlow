@@ -24,6 +24,7 @@ namespace login_and_register
         }
 
         public string kullaniciadi { get; set; }
+        public int kullaniciId { get; set; } // ID için property ekle
 
 
         private void Ayarlar_Load(object sender, EventArgs e)
@@ -55,15 +56,17 @@ namespace login_and_register
             }
             else if (NameBool && !OldPasswdBool && !NewPasswdBool)
             {
-                query = "update Users set passcode = @NEWPASSWD where _name = @USER and passcode = @OLDPASSWD";
+                query = "update Users set passcode = @NEWPASSWD where Id = @ID and passcode = @OLDPASSWD";
             }
             else if (!NameBool && !OldPasswdBool && NewPasswdBool)
             {
-                query = "update Users set username = @NAME where _name = @USER and passcode = @OLDPASSWD";
+                query = "update Users set username = @NAME where Id = @ID and passcode = @OLDPASSWD";
+                kullaniciadi = textBox2.Text; // kullanıcı adını güncelle
             }
             else if (!NameBool && !OldPasswdBool && !NewPasswdBool)
             {
-                query = "update Users set username = @NAME, passcode = @NEWPASSWD where _name = @USER and passcode = @OLDPASSWD";
+                query = "update Users set username = @NAME, passcode = @NEWPASSWD where Id = @ID and passcode = @OLDPASSWD";
+                kullaniciadi = textBox2.Text; // kullanıcı adını güncelle
             }
             else if (!NameBool && OldPasswdBool && !NewPasswdBool)
             {
@@ -91,6 +94,7 @@ namespace login_and_register
                         cmd.Parameters.AddWithValue("@OLDPASSWD", (object)OldPasswd ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@NEWPASSWD", (object)NewPasswd ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@USER", kullaniciadi);
+                        cmd.Parameters.AddWithValue("@ID", kullaniciId); // Parametre ekle
                         affectedRows = cmd.ExecuteNonQuery();
                     }
                 }
@@ -114,13 +118,37 @@ namespace login_and_register
             try
             {
                 var YesOrNo = MessageBox.Show("Hesabınız silinecektir, emin misiniz?", "Dikkat", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (string.IsNullOrEmpty(textBox3.Text))
+                if (string.IsNullOrEmpty(textBox2.Text))
                 {
-                    MessageBox.Show("lütfen güncel şifrenizi giriniz", "Hata");
+                    MessageBox.Show("Lütfen güncel şifrenizi giriniz", "Hata");
+                    return;
                 }
-                else if (YesOrNo == DialogResult.Yes)
+                if (YesOrNo == DialogResult.Yes)
                 {
-                    MessageBox.Show("Hesabınız silinmiştir", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string OldPasswd = textBox2.Text;
+                    string query = "delete from Users where Id = @ID and passcode = @OLDPASSWD"; // Silme sorgusunda
+                    int affectedRows = 0;
+                    using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                    {
+                        con.Open();
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.Parameters.AddWithValue("@USER", kullaniciadi);
+                            cmd.Parameters.AddWithValue("@OLDPASSWD", OldPasswd);
+                            cmd.Parameters.AddWithValue("@ID", kullaniciId); // Parametre ekle
+                            affectedRows = cmd.ExecuteNonQuery();
+                        }
+                    }
+                    if (affectedRows > 0)
+                    {
+                        MessageBox.Show("Hesabınız silinmiştir", "Başarılı", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (this.ParentForm != null)
+                            this.ParentForm.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Şifre yanlış veya kullanıcı bulunamadı, silme işlemi başarısız.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else if (YesOrNo == DialogResult.No)
                 {
@@ -129,28 +157,21 @@ namespace login_and_register
                 }
                 else
                 {
-                    MessageBox.Show("bilinemeyen bir hata oluştu", "hata");
+                    MessageBox.Show("Bilinmeyen bir hata oluştu", "Hata");
                 }
-                string OldPasswd = textBox3.Text;
-                string query = "delete from Users where passcode = @OLDPASSWD";
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
-                {
-                    con.Open();
-                    using (SqlCommand cmd = new SqlCommand(query, con))
-                    {
-                        cmd.Parameters.AddWithValue("@OLDPASSWD", OldPasswd);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                con.Close();
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show("Silme işlemi başarısız: " + ex.Message, "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
         {
 
         }
