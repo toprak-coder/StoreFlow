@@ -22,8 +22,11 @@ namespace login_and_register
             InitializeComponent();
         }
 
+        /* property Kısmı */
+
         public string kullaniciadi { get; set; }  //kullanıcı adını tutacak değişken
         public int kullaniciId { get; set; } // ID için property ekle
+        public string UserControlName { get; set; } // Dashboard'dan user control alıp yüklemek için
 
         private void LoadUserControl(UserControl uc)
         {
@@ -31,7 +34,6 @@ namespace login_and_register
             panel1.Controls.Clear(); // Öncekini sil
             panel1.Controls.Add(uc); // Yeniyi ekle
         }
-
 
         private void hopePictureBox1_Click(object sender, EventArgs e)
         {
@@ -65,7 +67,10 @@ namespace login_and_register
 
         private void foxButton7_Click(object sender, EventArgs e)
         {
-
+            var dashboard = new Dashboard();
+            dashboard.MainForm = this;
+            dashboard.kullaniciadi = kullaniciadi;
+            LoadUserControl(dashboard);
         }
 
         private void foxButton6_Click(object sender, EventArgs e)
@@ -89,6 +94,44 @@ namespace login_and_register
         private void appform_Load(object sender, EventArgs e)
         {
             labelEdit1.Text = kullaniciadi; // Kullanıcı adını labelEdit1'e ata
+
+        }
+        public void LoadUserControlByName()
+        {
+            if (string.IsNullOrEmpty(UserControlName))
+                return;
+            else if (UserControlName == "Ayarlar")
+            {
+                var ayarlar = new Ayarlar();
+                ayarlar.kullaniciadi = this.kullaniciadi;
+                ayarlar.kullaniciId = this.kullaniciId;
+                LoadUserControl(ayarlar);
+            }
+            else if (UserControlName == "Kategori Ekle-Sil")
+            {
+                LoadUserControl(new KategoriEkle());
+            }
+            else if (UserControlName == "Ürün Ekle")
+            {
+                LoadUserControl(new UrunEkle());
+            }
+            else if (UserControlName == "Ürün Sil")
+            {
+                LoadUserControl(new UrunSil());
+            }
+            else if (UserControlName == "Ürün Düzenle")
+            {
+                LoadUserControl(new UrunDuzenle());
+            }
+            else if (UserControlName == "Ürün Detayları")
+            {
+                LoadUserControl(new UrunleriGoruntule());
+            }
+            UserControlName = "";
+        }
+
+        private void labelEdit1_Click(object sender, EventArgs e)
+        {
 
         }
     }

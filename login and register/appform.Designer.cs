@@ -142,6 +142,7 @@
             labelEdit1.Size = new Size(46, 20);
             labelEdit1.TabIndex = 2;
             labelEdit1.Text = "name";
+            labelEdit1.Click += labelEdit1_Click;
             // 
             // parrotPictureBox1
             // 
