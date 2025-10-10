@@ -62,11 +62,12 @@
             foxBigLabel2.ForeColor = Color.FromArgb(76, 88, 100);
             foxBigLabel2.Line = ReaLTaiizor.Controls.FoxBigLabel.Direction.Bottom;
             foxBigLabel2.LineColor = Color.FromArgb(200, 200, 200);
-            foxBigLabel2.Location = new Point(552, 13);
+            foxBigLabel2.Location = new Point(505, 13);
             foxBigLabel2.Name = "foxBigLabel2";
             foxBigLabel2.Size = new Size(151, 41);
             foxBigLabel2.TabIndex = 2;
             foxBigLabel2.Text = "Saat $Time";
+            foxBigLabel2.Click += foxBigLabel2_Click;
             // 
             // nightButton1
             // 
@@ -238,6 +239,7 @@
             parrotPictureBox1.TabIndex = 21;
             parrotPictureBox1.Text = "parrotPictureBox1";
             parrotPictureBox1.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            parrotPictureBox1.Click += parrotPictureBox1_Click;
             // 
             // parrotPictureBox2
             // 
@@ -260,6 +262,7 @@
             parrotPictureBox2.TabIndex = 22;
             parrotPictureBox2.Text = "parrotPictureBox2";
             parrotPictureBox2.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            parrotPictureBox2.Click += parrotPictureBox2_Click;
             // 
             // Dashboard
             // 
