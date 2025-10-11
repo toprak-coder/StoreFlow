@@ -278,14 +278,23 @@ SELECT @@SERVERNAME AS ServerName;
 - Modern ve kullanıcı dostu tasarım
 - Kayıt ve giriş seçenekleri
 
+![resim yüklenemedi](https://raw.githubusercontent.com/toprak-coder/StoreFlow/refs/heads/master/images/Login.png)
+![resim yüklenemedi](https://raw.githubusercontent.com/toprak-coder/StoreFlow/refs/heads/master/images/Register.png)
+
 ### Dashboard
 - Hoş geldin mesajı
 - Hızlı erişim butonları
 - Anlık saat gösterimi
 
+![resim yüklenemedi](https://raw.githubusercontent.com/toprak-coder/StoreFlow/refs/heads/master/images/Dashboard.png)
+
 ### Ürün Yönetimi
 - Ekleme, düzenleme, silme işlemleri
 - DataGridView ile liste görünümü
+
+![resim yüklenemedi](https://raw.githubusercontent.com/toprak-coder/StoreFlow/refs/heads/master/images/ÜrüneEkle.png)
+
+![resim yüklenemedi](https://raw.githubusercontent.com/toprak-coder/StoreFlow/refs/heads/master/images/DataWiev.png)
 
 ---
 
