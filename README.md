@@ -292,31 +292,92 @@ SELECT @@SERVERNAME AS ServerName;
 ## 📁 Proje Yapısı
 
 ```
-magaza-uygulamas-winform/
+magaza-uygulamas-winform--master/
 │
-├── login and register/
-│   ├── Program.cs                 # Uygulama giriş noktası
-│   ├── LoginForm.cs              # Giriş formu
-│   ├── RegisterForm.cs           # Kayıt formu
-│   ├── appform.cs                # Ana uygulama formu
-│   ├── Dashboard.cs              # Kontrol paneli
-│   │
-│   ├── Ürün Yönetimi/
-│   │   ├── UrunEkle.cs          # Ürün ekleme
-│   │   ├── UrunSil.cs           # Ürün silme
-│   │   ├── UrunDuzenle.cs       # Ürün düzenleme (UserControl)
-│   │   ├── UrunDuzenleWinform.cs # Ürün düzenleme (Form)
-│   │   └── UrunleriGoruntule.cs # Ürün listeleme
-│   │
-│   ├── KategoriEkle.cs          # Kategori yönetimi
-│   ├── Ayarlar.cs               # Kullanıcı ayarları
-│   │
-│   └── Resources/               # Görseller ve kaynaklar
+├── LICENSE                          # MIT License
+├── README.md                        # Proje dokümantasyonu
+├── .gitignore                       # Git ignore kuralları
+├── .gitattributes                   # Git attributes
 │
-├── README.md                     # Bu dosya
-├── .gitignore
-└── login and register.sln       # Visual Studio solution
+├── login and register.sln           # Visual Studio solution dosyası
+│
+└── login and register/              # Ana proje klasörü
+    │
+    ├── Program.cs                   # Uygulama giriş noktası
+    ├── login and register.csproj    # Proje yapılandırma dosyası
+    │
+    ├── appform.cs                   # Ana uygulama formu
+    ├── appform.Designer.cs
+    ├── appform.resx
+    │
+    ├── LoginForm.cs                 # Giriş formu
+    ├── LoginForm.Designer.cs
+    ├── LoginForm.resx
+    │
+    ├── RegisterForm.cs              # Kayıt formu
+    ├── RegisterForm.Designer.cs
+    ├── RegisterForm.resx
+    │
+    ├── Dashboard.cs                 # Kontrol paneli (UserControl)
+    ├── Dashboard.Designer.cs
+    ├── Dashboard.resx
+    │
+    ├── Ayarlar.cs                   # Ayarlar paneli (UserControl)
+    ├── Ayarlar.Designer.cs
+    ├── Ayarlar.resx
+    │
+    ├── KategoriEkle.cs              # Kategori yönetimi (UserControl)
+    ├── KategoriEkle.Designer.cs
+    ├── KategoriEkle.resx
+    │
+    ├── UrunEkle.cs                  # Ürün ekleme (UserControl)
+    ├── UrunEkle.Designer.cs
+    ├── UrunEkle.resx
+    │
+    ├── UrunSil.cs                   # Ürün silme (UserControl)
+    ├── UrunSil.Designer.cs
+    ├── UrunSil.resx
+    │
+    ├── UrunDuzenle.cs               # Ürün düzenleme seçici (UserControl)
+    ├── UrunDuzenle.Designer.cs
+    ├── UrunDuzenle.resx
+    │
+    ├── UrunDuzenleWinform.cs        # Ürün düzenleme formu (Form)
+    ├── UrunDuzenleWinform.Designer.cs
+    ├── UrunDuzenleWinform.resx
+    │
+    ├── UrunleriGoruntule.cs         # Ürün listeleme (UserControl)
+    ├── UrunleriGoruntule.Designer.cs
+    ├── UrunleriGoruntule.resx
+    │
+    ├── Resource1.Designer.cs        # Kaynak dosyası
+    ├── Resource1.resx
+    │
+    ├── Properties/                  # Proje özellikleri
+    │   ├── Resources.Designer.cs
+    │   └── Resources.resx
+    │
+    └── Resources/                   # Görseller ve kaynaklar
+        └── images(1).png            # Uygulama görselleri
 ```
+
+### 📝 Dosya Açıklamaları
+
+- **`.cs`** - C# kaynak kod dosyaları (iş mantığı ve event handler'lar)
+- **`.Designer.cs`** - Visual Studio tarafından otomatik oluşturulan UI tasarım kodu
+- **`.resx`** - Kaynak dosyaları (resimler, stringler, form özellikleri)
+- **`.csproj`** - Proje yapılandırma dosyası (NuGet paketleri, referanslar, build ayarları)
+- **`.sln`** - Solution dosyası (Visual Studio projesi, tüm projeleri içerir)
+
+### 🗂️ Dosya Türleri
+
+**Form Dosyaları:**
+- `LoginForm`, `RegisterForm`, `appform`, `UrunDuzenleWinform`
+- Bağımsız pencereler olarak açılır
+
+**UserControl Dosyaları:**
+- `Dashboard`, `Ayarlar`, `KategoriEkle`, `UrunEkle`, `UrunSil`, `UrunDuzenle`, `UrunleriGoruntule`
+- Ana form içinde dinamik olarak yüklenir
 
 ---
 
@@ -340,6 +401,64 @@ magaza-uygulamas-winform/
 - [ ] Çoklu dil desteği
 - [ ] Tema seçenekleri (Dark/Light)
 - [ ] Yedekleme sistemi
+
+### TODO: Dosya Yapısı Düzenleme
+
+**Öncelikli İyileştirmeler:**
+
+1. **Klasör Organizasyonu**
+   - [ ] `Forms/` klasörü oluştur → `LoginForm`, `RegisterForm`, `appform`, `UrunDuzenleWinform` taşı
+   - [ ] `UserControls/` klasörü oluştur → `Dashboard`, `Ayarlar`, `KategoriEkle`, `UrunEkle`, `UrunSil`, `UrunDuzenle`, `UrunleriGoruntule` taşı
+   - [ ] `Models/` klasörü oluştur → Veri modelleri için (User, Product, Category)
+   - [ ] `Services/` klasörü oluştur → İş mantığı için
+   - [ ] `Data/` klasörü oluştur → Veritabanı işlemleri için
+   - [ ] `Helpers/` klasörü oluştur → Yardımcı sınıflar için
+
+2. **Yapılandırma ve Veritabanı**
+   - [ ] `appsettings.json` ekle → Connection string'i buraya taşı
+   - [ ] `DatabaseHelper.cs` oluştur → Merkezi veritabanı bağlantı yönetimi
+   - [ ] `ConnectionManager.cs` oluştur → Connection string yönetimi
+   - [ ] Tüm dosyalardaki tekrarlanan connection string'leri kaldır
+
+3. **Kod Organizasyonu**
+   - [ ] `Constants.cs` ekle → Sabit değerler (tablo adları, sütun adları, mesajlar)
+   - [ ] `ValidationHelper.cs` ekle → Form validasyon fonksiyonları
+   - [ ] `MessageHelper.cs` ekle → Merkezi mesaj gösterimi
+   - [ ] `SecurityHelper.cs` ekle → Şifre hash'leme ve güvenlik
+
+4. **Hedef Yapı (Örnek)**
+   ```
+   login and register/
+   ├── Program.cs
+   ├── Forms/
+   │   ├── LoginForm.cs
+   │   ├── RegisterForm.cs
+   │   ├── appform.cs
+   │   └── UrunDuzenleWinform.cs
+   ├── UserControls/
+   │   ├── Dashboard.cs
+   │   ├── Ayarlar.cs
+   │   └── ...
+   ├── Models/
+   │   ├── User.cs
+   │   ├── Product.cs
+   │   └── Category.cs
+   ├── Services/
+   │   ├── UserService.cs
+   │   ├── ProductService.cs
+   │   └── CategoryService.cs
+   ├── Data/
+   │   ├── DatabaseHelper.cs
+   │   └── ConnectionManager.cs
+   ├── Helpers/
+   │   ├── Constants.cs
+   │   ├── ValidationHelper.cs
+   │   ├── MessageHelper.cs
+   │   └── SecurityHelper.cs
+   ├── Properties/
+   ├── Resources/
+   └── appsettings.json
+   ```
 
 ---
 
