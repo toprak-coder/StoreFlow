@@ -98,6 +98,7 @@
 ```xml
 - Microsoft.Data.SqlClient (6.1.1) - Veritabanı bağlantısı
 - ReaLTaiizor (3.8.1.3) - Modern UI bileşenleri
+- Syncfusion.Chart.Windows (31.1.21) - Grafik ve chart desteği
 - Syncfusion.Shared.Base (31.1.21) - Syncfusion temel bileşenler
 - System.Data.SqlClient (4.9.0) - SQL veri erişimi
 - WinForms.DataVisualization (1.10.0) - Veri görselleştirme
@@ -370,13 +371,22 @@ Katkılarınızı bekliyoruz! Projeye katkıda bulunmak için:
 
 ## 📄 Lisans
 
-Bu proje açık kaynak kodludur. Eğitim ve ticari olmayan kullanım için serbesttir.
+Bu proje [MIT License](LICENSE) altında lisanslanmıştır.
+
+**MIT License** ile:
+- ✅ Ticari kullanım yapabilirsiniz
+- ✅ Kodu değiştirebilir ve dağıtabilirsiniz
+- ✅ Özel projelerinizde kullanabilirsiniz
+- ✅ Lisans ve telif hakkı bildirimini korumanız yeterlidir
+
+Detaylar için [LICENSE](LICENSE) dosyasına bakın.
 
 ---
 
 ## 🙏 Teşekkürler
 
 - **ReaLTaiizor** - Modern UI bileşenleri için
+- **Syncfusion** - Chart ve görselleştirme araçları için
 - **Microsoft** - .NET Framework ve SQL Server için
 
 ---
