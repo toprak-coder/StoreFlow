@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using login_and_register.Models;
 
 
 namespace login_and_register
@@ -15,11 +16,13 @@ namespace login_and_register
     public partial class Dashboard : UserControl
     {
         public appform MainForm { get; set; } // appform referansı
-        public string kullaniciadi { get; set; } //kullanıcı adı 
 
-        public Dashboard()
+        private UserData _userData; // OOP ile dışarıdan alınan kullanıcı verisi
+
+        public Dashboard(UserData userData)
         {
             InitializeComponent();
+            _userData = userData;
         }
 
         private void materialLabel1_Click(object sender, EventArgs e)
@@ -39,7 +42,7 @@ namespace login_and_register
                 foxBigLabel2.Width = (int)textSize.Width + 10; // +10 px boşluk
             }
 
-            foxBigLabel1.Text = "Hoşgeldin, " + kullaniciadi;
+            foxBigLabel1.Text = "Hoşgeldin, " + _userData.kullaniciadi;
             using (Graphics g = foxBigLabel1.CreateGraphics())
             {
                 // Yazının boyutunu ölç
@@ -125,8 +128,6 @@ namespace login_and_register
             OpenLink("https://x.com/Psikoz_Coder");
         }
 
-
-        
         private void OpenLink(string url)
         {
             try

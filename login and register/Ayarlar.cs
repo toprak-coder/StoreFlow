@@ -9,27 +9,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using login_and_register.Models;
 
 namespace login_and_register
 {
     public partial class Ayarlar : UserControl
     {
-
         static SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True");
         static SqlCommand scmd;
 
-        public Ayarlar()
+        private UserData _userData;
+
+        public Ayarlar(UserData userData)
         {
             InitializeComponent();
+            _userData = userData;
         }
-
-        public string kullaniciadi { get; set; }
-        public int kullaniciId { get; set; } // ID için property ekle
-
 
         private void Ayarlar_Load(object sender, EventArgs e)
         {
-
+            // Gerekirse burada _userData'dan kullanıcı bilgisi alınabilir
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -61,12 +60,12 @@ namespace login_and_register
             else if (!NameBool && !OldPasswdBool && NewPasswdBool)
             {
                 query = "update Users set username = @NAME where Id = @ID and passcode = @OLDPASSWD";
-                kullaniciadi = textBox2.Text; // kullanıcı adını güncelle
+                _userData.kullaniciadi = textBox2.Text; // kullanıcı adını güncelle
             }
             else if (!NameBool && !OldPasswdBool && !NewPasswdBool)
             {
                 query = "update Users set username = @NAME, passcode = @NEWPASSWD where Id = @ID and passcode = @OLDPASSWD";
-                kullaniciadi = textBox2.Text; // kullanıcı adını güncelle
+                _userData.kullaniciadi = textBox2.Text; // kullanıcı adını güncelle
             }
             else if (!NameBool && OldPasswdBool && !NewPasswdBool)
             {
@@ -93,8 +92,8 @@ namespace login_and_register
                         cmd.Parameters.AddWithValue("@NAME", (object)Name ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@OLDPASSWD", (object)OldPasswd ?? DBNull.Value);
                         cmd.Parameters.AddWithValue("@NEWPASSWD", (object)NewPasswd ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@USER", kullaniciadi);
-                        cmd.Parameters.AddWithValue("@ID", kullaniciId); // Parametre ekle
+                        cmd.Parameters.AddWithValue("@USER", _userData.kullaniciadi);
+                        cmd.Parameters.AddWithValue("@ID", _userData.kullaniciId); // Parametre ekle
                         affectedRows = cmd.ExecuteNonQuery();
                     }
                 }
@@ -133,9 +132,9 @@ namespace login_and_register
                         con.Open();
                         using (SqlCommand cmd = new SqlCommand(query, con))
                         {
-                            cmd.Parameters.AddWithValue("@USER", kullaniciadi);
+                            cmd.Parameters.AddWithValue("@USER", _userData.kullaniciadi);
                             cmd.Parameters.AddWithValue("@OLDPASSWD", OldPasswd);
-                            cmd.Parameters.AddWithValue("@ID", kullaniciId); // Parametre ekle
+                            cmd.Parameters.AddWithValue("@ID", _userData.kullaniciId); // Parametre ekle
                             affectedRows = cmd.ExecuteNonQuery();
                         }
                     }

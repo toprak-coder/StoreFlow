@@ -10,23 +10,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using login_and_register.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace login_and_register
 {
     public partial class appform : Form
     {
+        public UserData UserData { get; set; } // Kullanıcı bilgilerini tutan OOP nesnesi
+        public string UserControlName { get; set; } // Dashboard'dan user control alıp yüklemek için
 
-        public appform()
+        public appform(UserData userData)
         {
             InitializeComponent();
+            UserData = userData;
         }
-
-        /* property Kısmı */
-
-        public string kullaniciadi { get; set; }  //kullanıcı adını tutacak değişken
-        public int kullaniciId { get; set; } // ID için property ekle
-        public string UserControlName { get; set; } // Dashboard'dan user control alıp yüklemek için
 
         private void LoadUserControl(UserControl uc)
         {
@@ -67,17 +65,14 @@ namespace login_and_register
 
         private void foxButton7_Click(object sender, EventArgs e)
         {
-            var dashboard = new Dashboard();
+            var dashboard = new Dashboard(UserData);
             dashboard.MainForm = this;
-            dashboard.kullaniciadi = kullaniciadi;
             LoadUserControl(dashboard);
         }
 
         private void foxButton6_Click(object sender, EventArgs e)
         {
-            var ayarlar = new Ayarlar();
-            ayarlar.kullaniciadi = this.kullaniciadi;
-            ayarlar.kullaniciId = this.kullaniciId; // ID'yi aktar
+            var ayarlar = new Ayarlar(UserData);
             LoadUserControl(ayarlar);
         }
 
@@ -93,8 +88,7 @@ namespace login_and_register
 
         private void appform_Load(object sender, EventArgs e)
         {
-            labelEdit1.Text = kullaniciadi; // Kullanıcı adını labelEdit1'e ata
-
+            labelEdit1.Text = UserData.kullaniciadi; // Kullanıcı adını labelEdit1'e ata
         }
         public void LoadUserControlByName()
         {
@@ -102,9 +96,7 @@ namespace login_and_register
                 return;
             else if (UserControlName == "Ayarlar")
             {
-                var ayarlar = new Ayarlar();
-                ayarlar.kullaniciadi = this.kullaniciadi;
-                ayarlar.kullaniciId = this.kullaniciId;
+                var ayarlar = new Ayarlar(UserData);
                 LoadUserControl(ayarlar);
             }
             else if (UserControlName == "Kategori Ekle-Sil")

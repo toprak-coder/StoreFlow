@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using login_and_register.Models;
 
 namespace login_and_register
 {
@@ -95,17 +96,12 @@ namespace login_and_register
                     }
                 }
                 Hide();
-                appform app = new appform();
-                app.kullaniciadi = UserNameTxtBox.Text;
-                app.kullaniciId = userId; // ID'yi aktar
+                var userData = new UserData { kullaniciadi = UserNameTxtBox.Text, kullaniciId = userId };
+                appform app = new appform(userData);
                 app.ShowDialog();
                 Close();
             }
         }
-
-
-
-
 
         bool authenticate()
         {// alanlara boş yada space ilemi doldurulmuş diye bakar eğer boş veya doldurulmamış alanlar varsa false döner yoksa true döner
