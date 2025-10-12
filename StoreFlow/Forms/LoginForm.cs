@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using StoreFlow.Models;
+using StoreFlow.Forms;
 
 namespace StoreFlow
 {
@@ -112,6 +113,12 @@ namespace StoreFlow
         private void UserNameTxtBox_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void dreamButton1_Click(object sender, EventArgs e)
+        {
+            DataBaseConnection DbTestBaglanti = new DataBaseConnection();
+            DbTestBaglanti.ShowDialog();
         }
     }
 }

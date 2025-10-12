@@ -34,6 +34,7 @@
             foxLabel2 = new ReaLTaiizor.Controls.FoxLabel();
             LoginButton = new ReaLTaiizor.Controls.DreamButton();
             RegisterButton = new ReaLTaiizor.Controls.DreamButton();
+            dreamButton1 = new ReaLTaiizor.Controls.DreamButton();
             SuspendLayout();
             // 
             // UserNameTxtBox
@@ -123,12 +124,29 @@
             RegisterButton.UseVisualStyleBackColor = true;
             RegisterButton.Click += RegisterButton_Click;
             // 
+            // dreamButton1
+            // 
+            dreamButton1.ColorA = Color.FromArgb(31, 31, 31);
+            dreamButton1.ColorB = Color.FromArgb(41, 41, 41);
+            dreamButton1.ColorC = Color.FromArgb(51, 51, 51);
+            dreamButton1.ColorD = Color.FromArgb(0, 0, 0, 0);
+            dreamButton1.ColorE = Color.FromArgb(25, 255, 255, 255);
+            dreamButton1.ForeColor = Color.FromArgb(40, 218, 255);
+            dreamButton1.Location = new Point(189, 234);
+            dreamButton1.Name = "dreamButton1";
+            dreamButton1.Size = new Size(116, 19);
+            dreamButton1.TabIndex = 6;
+            dreamButton1.Text = "DataBase Bağla";
+            dreamButton1.UseVisualStyleBackColor = true;
+            dreamButton1.Click += dreamButton1_Click;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(20, 33, 61);
-            ClientSize = new Size(460, 258);
+            ClientSize = new Size(460, 265);
+            Controls.Add(dreamButton1);
             Controls.Add(RegisterButton);
             Controls.Add(LoginButton);
             Controls.Add(foxLabel2);
@@ -152,5 +170,6 @@
         private ReaLTaiizor.Controls.FoxLabel foxLabel2;
         private ReaLTaiizor.Controls.DreamButton LoginButton;
         private ReaLTaiizor.Controls.DreamButton RegisterButton;
+        private ReaLTaiizor.Controls.DreamButton dreamButton1;
     }
 }
