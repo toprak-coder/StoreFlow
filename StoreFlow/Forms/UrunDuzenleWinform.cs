@@ -19,7 +19,7 @@ namespace StoreFlow
         public string GelenVeriName { get; set; }
         public int GelenVeriId { get; set; }
 
-        static SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True");
+        static SqlConnection con = new SqlConnection(DbConnection.GetConnectionString());
         static SqlCommand scmd;
 
         public UrunDuzenleWinform()
@@ -35,7 +35,7 @@ namespace StoreFlow
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                using (SqlConnection con = new SqlConnection(DbConnection.GetConnectionString()))
                 {
                     con.Open();
 
@@ -100,7 +100,7 @@ namespace StoreFlow
 
             try
             {
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                using (SqlConnection con = new SqlConnection(DbConnection.GetConnectionString()))
                 {
                     con.Open();
 

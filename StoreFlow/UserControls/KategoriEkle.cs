@@ -15,7 +15,7 @@ namespace StoreFlow
     {
         string query = "INSERT INTO Products (Category,Name) VALUES (@Category,@Name)";
         string DeleteQuery = "DELETE FROM Products where Category = @Category";
-        static SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True");
+        static SqlConnection con = new SqlConnection(DbConnection.GetConnectionString());
         static SqlCommand scmd;
 
         public KategoriEkle()
@@ -41,10 +41,10 @@ namespace StoreFlow
 
         private void button2_Click(object sender, EventArgs e)
         {
+            string KategoriIsmı = textBox1.Text;
             try
             {
-                string KategoriIsmı = textBox1.Text;
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                    using (SqlConnection con = new SqlConnection(DbConnection.GetConnectionString()))
                 {
                     con.Open();
                     using (SqlCommand cmd = new SqlCommand(query, con))
@@ -59,7 +59,7 @@ namespace StoreFlow
 
                 try
                 {
-                    using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                    using (SqlConnection con = new SqlConnection(DbConnection.GetConnectionString()))
                     {
                         con.Open();
                         using (SqlCommand cmd = new SqlCommand("Select Category from Products", con))
@@ -95,7 +95,7 @@ namespace StoreFlow
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                using (SqlConnection con = new SqlConnection(DbConnection.GetConnectionString()))
                 {
                     con.Open();
                     using (SqlCommand cmd = new SqlCommand("Select Category from Products", con))
@@ -123,7 +123,7 @@ namespace StoreFlow
             try
             {
                 string KategoriIsmı2 =  aloneComboBox1.SelectedItem.ToString();
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                using (SqlConnection con = new SqlConnection(DbConnection.GetConnectionString()))
                 {
                     con.Open();
                     using (SqlCommand cmd = new SqlCommand(DeleteQuery, con))
@@ -137,7 +137,7 @@ namespace StoreFlow
 
                 try
                 {
-                    using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                    using (SqlConnection con = new SqlConnection(DbConnection.GetConnectionString()))
                     {
                         con.Open();
                         using (SqlCommand cmd = new SqlCommand("Select Category from Products", con))

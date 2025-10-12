@@ -10,9 +10,9 @@ namespace StoreFlow
     public partial class UrunSil : UserControl
     {
         
-        private string connectionString = @"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;TrustServerCertificate=True";
+        private string connectionString = DbConnection.GetConnectionString();
         string DeleteQuery = "DELETE FROM Products where Name = @ProductName";
-        static SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True");
+        static SqlConnection con = new SqlConnection(DbConnection.GetConnectionString());
         static SqlCommand scmd;
 
         public UrunSil()
@@ -130,7 +130,7 @@ namespace StoreFlow
                     //isim olan textbox için
                     string UrunIsmı = textBox2.Text;
 
-                    using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                    using (SqlConnection con = new SqlConnection(DbConnection.GetConnectionString()))
                     {
                         con.Open();
                         using (SqlCommand cmd = new SqlCommand(DeleteQuery, con))

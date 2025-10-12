@@ -15,7 +15,7 @@ namespace StoreFlow
     public partial class UrunEkle : UserControl
     {
         string query = "INSERT INTO Products (Name,ProductData,Category) VALUES (@Name,@ProductData,@Category)";
-        static SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True");
+        static SqlConnection con = new SqlConnection(DbConnection.GetConnectionString());
         static SqlCommand scmd;
         public UrunEkle()
         {
@@ -39,7 +39,7 @@ namespace StoreFlow
 
             try
             {
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                using (SqlConnection con = new SqlConnection(DbConnection.GetConnectionString()))
                 {
                     con.Open();
                     using (SqlCommand cmd = new SqlCommand(query, con))
@@ -66,7 +66,7 @@ namespace StoreFlow
                 comboBox1.Items.Clear();
                 comboBox1.Text = "";
 
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                using (SqlConnection con = new SqlConnection(DbConnection.GetConnectionString()))
                 {
                     con.Open();
                     using (SqlCommand cmd = new SqlCommand("Select Category from Products", con))

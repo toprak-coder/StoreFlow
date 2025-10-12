@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using StoreFlow.Models;
@@ -16,7 +18,6 @@ namespace StoreFlow
 {
     public partial class LoginForm : Form
     {
-        static SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True");
         static SqlCommand scmd;
         public LoginForm()
         {
@@ -39,9 +40,9 @@ namespace StoreFlow
 
             bool isUserOk = false, ispassok = false;
 
-            // Kullanıcı var mı kontrol
+            string connectionString = DbConnection.GetConnectionString();
             string query = "SELECT * FROM Users WHERE username=@USER";
-            using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
                 con.Open();
                 using (SqlCommand scmd = new SqlCommand(query, con))
@@ -55,7 +56,6 @@ namespace StoreFlow
                     }
                 }
 
-                // Şifre doğru mu kontrol
                 query = "SELECT * FROM Users WHERE username=@USER AND passcode=@PASS";
                 using (SqlCommand scmd = new SqlCommand(query, con))
                 {
@@ -80,10 +80,9 @@ namespace StoreFlow
             }
             else if (isUserOk && ispassok)
             {
-                // Login işlemi başarılıysa:
                 int userId = 0;
                 string query2 = "SELECT Id FROM Users WHERE username=@USER";
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True"))
+                using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
                     using (SqlCommand scmd = new SqlCommand(query2, con))

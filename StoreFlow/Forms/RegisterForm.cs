@@ -30,8 +30,7 @@ namespace StoreFlow
 
             try
             {
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;TrustServerCertificate=True;
-"))
+                using (SqlConnection con = new SqlConnection(DbConnection.GetConnectionString()))
                 {
                     con.Open();
                     using (SqlCommand scmd = new SqlCommand(query, con))

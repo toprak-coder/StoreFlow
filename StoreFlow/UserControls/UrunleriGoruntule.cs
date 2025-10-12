@@ -15,7 +15,7 @@ namespace StoreFlow
     public partial class UrunleriGoruntule : UserControl
     {
         // string query = "SELECT Name,Category,ProductData FROM Products where Name=@Name and ProductID=@ProductID and Category=@Category";
-        static SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;Initial Catalog=ImLazy;Integrated Security=True;Trust Server Certificate=True");
+        static SqlConnection con = new SqlConnection(DbConnection.GetConnectionString());
         static SqlCommand scmd;
         public UrunleriGoruntule()
         {
@@ -63,10 +63,7 @@ namespace StoreFlow
 
 
             using (SqlConnection con = new SqlConnection(
-                @"Data Source=DESKTOP-AHN04NV\SQLEXPRESS;
-                  Initial Catalog=ImLazy;
-                  Integrated Security=True;
-                  Trust Server Certificate=True"))
+                DbConnection.GetConnectionString()))
             {
                 string query = "SELECT * FROM Products";
                 SqlDataAdapter da = new SqlDataAdapter(query, con);

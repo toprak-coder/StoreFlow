@@ -6,8 +6,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -31,6 +33,8 @@ namespace StoreFlow.Forms
             try
             {
                 connectionString = dreamTextBox1.Text;
+                string fullConnectionString = $"{connectionString}";
+                SaveConnectionStringToAppData(connectionString);
                 MessageBox.Show("Kaydedildi", "Kaydedildi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -77,5 +81,25 @@ namespace StoreFlow.Forms
         {
             OpenLink("https://github.com/toprak-coder/StoreFlow/"); //detaylı bilgi için 
         }
+
+        private void SaveConnectionStringToAppData(string connStr)
+        {
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string storeFlowDir = Path.Combine(appDataPath, "StoreFlow");
+            Directory.CreateDirectory(storeFlowDir);
+
+            string configPath = Path.Combine(storeFlowDir, "appsettings.json");
+            var config = new
+            {
+                ConnectionStrings = new
+                {
+                    DefaultConnection = connStr
+                }
+            };
+            string json = JsonSerializer.Serialize(config, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(configPath, json);
+        }
+
+       
     }
 }
