@@ -401,6 +401,7 @@ magaza-uygulamas-winform--master/
 
 ### Gelecek Özellikler (Roadmap)
 - [ ] Uygulamaya Özel Icon
+- [ ] qr oluşturma ve okutma (kullanıcı ürün oluştururken qr oluşturabilsin yada kendisi direk ürün seçerek qr oluşturabilsin ve qr okutarak ürün ekleyebilsin yada görüntüleyebilsin)
 - [ ] Şifre şifreleme (BCrypt/Argon2)
 - [ ] Merkezi veritabanı yapılandırması
 - [ ] Stok takibi
