@@ -400,6 +400,7 @@ magaza-uygulamas-winform--master/
 - [ ] UI/UX iyileştirmeleri yapılabilir
 
 ### Gelecek Özellikler (Roadmap)
+- [ ] Uygulamaya Özel Icon
 - [ ] Şifre şifreleme (BCrypt/Argon2)
 - [ ] Merkezi veritabanı yapılandırması
 - [ ] Stok takibi
