@@ -1,3 +1,5 @@
+using login_and_register;
+
 namespace login_and_register
 {
     internal static class Program
