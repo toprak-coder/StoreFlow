@@ -115,6 +115,7 @@
             parrotPictureBox1.ColorLeft = Color.DodgerBlue;
             parrotPictureBox1.ColorRight = Color.DodgerBlue;
             parrotPictureBox1.CompositingQualityType = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+            parrotPictureBox1.Cursor = Cursors.Hand;
             parrotPictureBox1.FilterAlpha = 200;
             parrotPictureBox1.FilterEnabled = true;
             parrotPictureBox1.Image = null;
