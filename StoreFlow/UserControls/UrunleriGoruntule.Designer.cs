@@ -31,6 +31,7 @@
             nightHeaderLabel1 = new ReaLTaiizor.Controls.NightHeaderLabel();
             dataGridView1 = new DataGridView();
             panel1 = new Panel();
+            foreverButton1 = new ReaLTaiizor.Controls.ForeverButton();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -66,12 +67,27 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(20, 33, 61);
+            panel1.Controls.Add(foreverButton1);
             panel1.Controls.Add(nightHeaderLabel1);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(741, 82);
             panel1.TabIndex = 4;
+            // 
+            // foreverButton1
+            // 
+            foreverButton1.BackColor = Color.Transparent;
+            foreverButton1.BaseColor = Color.FromArgb(35, 168, 109);
+            foreverButton1.Font = new Font("Segoe UI", 12F);
+            foreverButton1.Location = new Point(595, 18);
+            foreverButton1.Name = "foreverButton1";
+            foreverButton1.Rounded = false;
+            foreverButton1.Size = new Size(120, 40);
+            foreverButton1.TabIndex = 2;
+            foreverButton1.Text = "Excel'e Aktar";
+            foreverButton1.TextColor = Color.FromArgb(243, 243, 243);
+            foreverButton1.Click += foreverButton1_Click;
             // 
             // UrunleriGoruntule
             // 
@@ -94,5 +110,6 @@
         private ReaLTaiizor.Controls.NightHeaderLabel nightHeaderLabel1;
         private DataGridView dataGridView1;
         private Panel panel1;
+        private ReaLTaiizor.Controls.ForeverButton foreverButton1;
     }
 }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClosedXML;
 
 namespace StoreFlow
 {
@@ -72,7 +73,7 @@ namespace StoreFlow
                 dataGridView1.DataSource = dt;
             }
 
-           
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -83,6 +84,41 @@ namespace StoreFlow
         private void nightHeaderLabel1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void foreverButton1_Click(object sender, EventArgs e)
+        {
+            using (var workbook = new ClosedXML.Excel.XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Products");
+
+                // Sütun başlıklarını ekle
+                for (int i = 0; i < dataGridView1.Columns.Count; i++)
+                {
+                    worksheet.Cell(1, i + 1).Value = dataGridView1.Columns[i].HeaderText;
+                }
+
+                // Satırları ekle
+                for (int i = 0; i < dataGridView1.Rows.Count; i++)
+                {
+                    for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                    {
+                        worksheet.Cell(i + 2, j + 1).Value = ClosedXML.Excel.XLCellValue.FromObject(dataGridView1.Rows[i].Cells[j].Value);
+                    }
+                }
+
+                // Dosyayı kaydet
+                var saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Excel Files|*.xlsx",
+                    Title = "Excel'e Aktar"
+                };
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    workbook.SaveAs(saveFileDialog.FileName);
+                    MessageBox.Show("Excel dosyası başarıyla oluşturuldu.");
+                }
+            }
         }
     }
 }
