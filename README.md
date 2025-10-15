@@ -404,6 +404,7 @@ magaza-uygulamas-winform--master/
 - [ ] Docs klasörü oluştur oraya sql bağlantısı için Docs koy ve bu linki kodda güncellemeyi unutma
 - [ ] qr oluşturma ve okutma (kullanıcı ürün oluştururken qr oluşturabilsin yada kendisi direk ürün seçerek qr oluşturabilsin ve qr okutarak ürün ekleyebilsin yada görüntüleyebilsin)
 - [ ] Şifre şifreleme (BCrypt/Argon2)
+- [ ] kullanıcı excel ile ürün vb yükleyebilsin
 - [ ] Merkezi veritabanı yapılandırması
 - [ ] Stok takibi
 - [ ] Fiyat yönetimi
